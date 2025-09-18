@@ -1,281 +1,268 @@
 <template>
   <div class="blog-container">
-    <!-- 顶部导航栏 -->
     <header class="navbar">
       <div class="container">
-        <h1 class="logo">我的博客</h1>
         <nav>
-          <ul class="nav-links">
+          <ul>
             <li><a href="#home">首页</a></li>
             <li><a href="#articles">文章</a></li>
-            <li><a href="#about">关于</a></li>
-            <li><a href="#contact">联系</a></li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#contact">联系我</a></li>
           </ul>
         </nav>
       </div>
     </header>
-
-    <!-- 主要内容区域 -->
+    
     <main class="main-content">
-      <div class="container">
-        <!-- 博客横幅 -->
-        <section class="hero" id="home">
-          <h2>欢迎来到我的个人博客</h2>
-          <p>分享技术、生活和思考的地方</p>
-        </section>
-
-        <!-- 最新文章 -->
-        <section class="latest-articles" id="articles">
-          <h3>最新文章</h3>
-          <div class="articles-grid">
+      <section class="hero" id="home">
+        <div class="container">
+          <h1>我的博客</h1>
+          <p>欢迎来到我的个人博客网站</p>
+        </div>
+      </section>
+      
+      <section class="latest-articles" id="articles">
+        <div class="container">
+          <h2>最新文章</h2>
+          <div class="article-list">
             <article v-for="article in articles" :key="article.id" class="article-card">
-              <img :src="article.imageUrl" :alt="article.title" class="article-image">
-              <h4>{{ article.title }}</h4>
-              <p class="article-date">{{ article.date }}</p>
+              <h3>{{ article.title }}</h3>
+              <p class="article-meta">{{ article.date }} · {{ article.category }}</p>
               <p class="article-excerpt">{{ article.excerpt }}</p>
-              <a href="#" class="read-more">阅读全文</a>
+              <a href="#" class="read-more">阅读更多</a>
             </article>
           </div>
-        </section>
-
-        <!-- 关于我 -->
-        <section class="about-section" id="about">
-          <h3>关于我</h3>
+        </div>
+      </section>
+      
+      <section class="about-section" id="about">
+        <div class="container">
+          <h2>关于我</h2>
           <div class="about-content">
-            <img src="/vite.svg" alt="个人头像" class="about-image">
-            <div class="about-text">
-              <p>你好，我是一名热爱编程的开发者。</p>
-              <p>我喜欢分享我的技术经验、学习心得和生活感悟。</p>
-              <p>希望通过这个博客，能够与更多志同道合的朋友交流。</p>
+            <img src="/vite.svg" alt="Profile Picture" class="profile-pic">
+            <div class="bio">
+              <p>你好，我是一名热爱编程和写作的开发者。这个博客是我分享技术知识、生活感悟和学习心得的地方。</p>
+              <p>我主要关注前端开发、Vue框架、TypeScript等技术领域，希望通过这个平台与大家交流学习。</p>
             </div>
           </div>
-        </section>
-
-        <!-- 联系方式 -->
-        <section class="contact-section" id="contact">
-          <h3>联系我</h3>
-          <div class="contact-form">
-            <input type="text" placeholder="您的姓名" class="form-input">
-            <input type="email" placeholder="您的邮箱" class="form-input">
-            <textarea placeholder="请输入留言内容" class="form-textarea"></textarea>
-            <button class="form-button">发送留言</button>
+        </div>
+      </section>
+      
+      <section class="contact-section" id="contact">
+        <div class="container">
+          <h2>联系我</h2>
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">姓名</label>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">邮箱</label>
+              <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">留言</label>
+              <textarea id="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">发送</button>
+          </form>
+          <div class="social-links">
+            <a href="#" class="social-link">GitHub</a>
+            <a href="#" class="social-link">Twitter</a>
+            <a href="#" class="social-link">LinkedIn</a>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
-
-    <!-- 页脚 -->
+    
     <footer class="footer">
       <div class="container">
         <p>&copy; 2024 我的个人博客. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#" class="social-link">Github</a>
-          <a href="#" class="social-link">掘金</a>
-          <a href="#" class="social-link">知乎</a>
-        </div>
       </div>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-/**
- * 文章数据类型定义
- */
+// 定义文章数据类型
 interface Article {
   id: number;
   title: string;
   date: string;
+  category: string;
   excerpt: string;
-  imageUrl: string;
 }
 
-/**
- * 博客文章数据
- */
-const articles = ref<Article[]>([
+// 模拟文章数据
+const articles: Article[] = [
   {
     id: 1,
-    title: "Vue 3 Composition API 入门指南",
+    title: "Vue 3 Composition API 入门教程",
     date: "2024-09-15",
-    excerpt: "本文介绍Vue 3 Composition API的基本用法和最佳实践，帮助你更好地理解和使用这个强大的特性。",
-    imageUrl: "/vite.svg"
+    category: "前端开发",
+    excerpt: "本文将介绍 Vue 3 Composition API 的基本用法，包括 setup 函数、响应式数据、生命周期钩子等内容。"
   },
   {
     id: 2,
-    title: "TypeScript 高级类型详解",
+    title: "TypeScript 高级类型系统详解",
     date: "2024-09-10",
-    excerpt: "深入探讨TypeScript中的高级类型特性，包括泛型、条件类型、映射类型等，提升你的TypeScript编程能力。",
-    imageUrl: "/vite.svg"
+    category: "编程语言",
+    excerpt: "深入探讨 TypeScript 的高级类型特性，如泛型、条件类型、映射类型等，提升代码类型安全性。"
   },
   {
     id: 3,
-    title: "前端性能优化实战技巧",
+    title: "Vite 构建工具性能优化实践",
     date: "2024-09-05",
-    excerpt: "分享一些实用的前端性能优化技巧，从代码层面到构建配置，全面提升你的网站加载速度和用户体验。",
-    imageUrl: "/vite.svg"
+    category: "工程化",
+    excerpt: "分享 Vite 构建工具的性能优化技巧，包括代码分割、按需加载、缓存策略等方面的实践经验。"
   }
-]);
+];
 </script>
 
 <style scoped>
-/* 全局容器样式 */
+/* 容器样式 */
 .blog-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 /* 导航栏样式 */
 .navbar {
-  background-color: #333;
+  background-color: #1e90ff;
   color: white;
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
 
-.logo {
-  font-size: 1.5rem;
-  margin: 0;
-}
-
-.nav-links {
+.navbar nav ul {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
+  gap: 2rem;
 }
 
-.nav-links a {
+.navbar nav a {
   color: white;
   text-decoration: none;
-  transition: color 0.3s;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
-  color: #42b983;
+.navbar nav a:hover {
+  color: #f0f0f0;
 }
 
-/* 主要内容样式 */
+/* 主内容区样式 */
 .main-content {
   flex: 1;
-  padding: 2rem 0;
 }
 
 .main-content .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 2rem;
 }
 
-/* 横幅样式 */
+/* Hero 区域样式 */
 .hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6rem 0;
   text-align: center;
-  padding: 4rem 0;
-  background-color: #f5f5f5;
-  margin-bottom: 2rem;
-  border-radius: 8px;
 }
 
-.hero h2 {
-  font-size: 2.5rem;
+.hero h1 {
+  font-size: 3rem;
   margin-bottom: 1rem;
 }
 
 .hero p {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: 1.25rem;
+  opacity: 0.9;
 }
 
 /* 文章列表样式 */
 .latest-articles {
-  margin-bottom: 3rem;
+  padding: 4rem 0;
 }
 
-.latest-articles h3 {
+.latest-articles h2 {
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-.articles-grid {
+.article-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
 }
 
 .article-card {
-  background-color: white;
+  background: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .article-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.article-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.article-card h4 {
-  padding: 1rem;
-  margin: 0;
-  font-size: 1.3rem;
-}
-
-.article-date {
-  padding: 0 1rem;
-  color: #666;
-  font-size: 0.9rem;
+.article-card h3 {
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.article-meta {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 1rem;
+  padding: 0 1.5rem;
 }
 
 .article-excerpt {
-  padding: 0 1rem 1rem;
+  padding: 0 1.5rem 1.5rem;
   color: #333;
   line-height: 1.6;
 }
 
 .read-more {
-  display: block;
-  text-align: center;
-  padding: 0.8rem;
-  background-color: #42b983;
-  color: white;
+  display: inline-block;
+  margin: 0 1.5rem 1.5rem;
+  color: #667eea;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .read-more:hover {
-  background-color: #35495e;
+  color: #764ba2;
 }
 
-/* 关于我样式 */
+/* 关于我部分样式 */
 .about-section {
-  margin-bottom: 3rem;
+  padding: 4rem 0;
+  background-color: #f8f9fa;
 }
 
-.about-section h3 {
+.about-section h2 {
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -286,70 +273,100 @@ const articles = ref<Article[]>([
   gap: 2rem;
 }
 
-.about-image {
-  width: 200px;
-  height: 200px;
+.profile-pic {
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #42b983;
+  border: 5px solid white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.about-text {
+.bio p {
   text-align: center;
+  line-height: 1.8;
   max-width: 800px;
-}
-
-.about-text p {
   margin-bottom: 1rem;
-  line-height: 1.6;
 }
 
-/* 联系方式样式 */
+/* 联系我部分样式 */
 .contact-section {
-  margin-bottom: 3rem;
+  padding: 4rem 0;
 }
 
-.contact-section h3 {
+.contact-section h2 {
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
 .contact-form {
   max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  margin: 0 auto 3rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-input,
-.form-textarea {
-  padding: 0.8rem;
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-.form-textarea {
-  resize: vertical;
-  min-height: 150px;
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
 }
 
-.form-button {
-  padding: 0.8rem;
-  background-color: #42b983;
+.submit-btn {
+  background-color: #667eea;
   color: white;
   border: none;
+  padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.form-button:hover {
-  background-color: #35495e;
+.submit-btn:hover {
+  background-color: #764ba2;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-link {
+  color: #666;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: #667eea;
 }
 
 /* 页脚样式 */
@@ -357,50 +374,47 @@ const articles = ref<Article[]>([
   background-color: #333;
   color: white;
   padding: 2rem 0;
+  text-align: center;
 }
 
 .footer .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  padding: 0 2rem;
 }
 
-.social-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.social-link {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.social-link:hover {
-  color: #42b983;
+.footer p {
+  margin: 0;
+  opacity: 0.8;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .navbar .container {
     flex-direction: column;
+    padding: 0 1rem;
+  }
+  
+  .navbar nav ul {
+    flex-direction: column;
+    align-items: center;
     gap: 1rem;
+    margin-top: 1rem;
   }
   
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+  .hero {
+    padding: 4rem 0;
   }
   
-  .hero h2 {
-    font-size: 2rem;
+  .hero h1 {
+    font-size: 2.5rem;
   }
   
-  .articles-grid {
+  .main-content .container {
+    padding: 0 1rem;
+  }
+  
+  .article-list {
     grid-template-columns: 1fr;
   }
 }
